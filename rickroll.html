@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You've been rickrolled.</title>
+    <script>
+        if (self.parent.frames.length) self.parent.location = document.location;
+        function randomRange(min, max) {
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+
+        function setWindow() {			
+            window.moveTo(randomRange(0, screen.width), randomRange(0, screen.height));
+        }
+
+        window.onload = function () {	
+            setInterval(setWindow, 500);
+            
+            return true;
+        }
+
+        window.onkeydown = function () {
+            return null;
+        }
+
+        window.oncontextmenu = function () {
+            
+            return false;
+        }
+
+        window.onbeforeunload = function () {
+            
+            return false;
+        }
+    </script>
+    <style>
+        video{
+            background-color: blueviolet;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted src="2455716699.mp4"></video>
+</body>
+</html>
