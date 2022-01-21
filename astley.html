@@ -122,12 +122,15 @@ overflow: hidden;
     left: 50%;
     transform: translate(-50%,-50%);
     width: 400px;
-    height: calc(400px / 1.8);
-    border-radius: 500px;
-    background-image: linear-gradient(90deg, #bc61d3,#d98eec);
+    height: calc(400px / 2.4);
+    border-radius: 150px;
+    background-image: linear-gradient(90deg, #6958b3,#8049c7);
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 0.95;
+    box-shadow: 0 0 100px rgb(13, 30, 68);
+    animation: pop 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
 }
 .btn{
     
@@ -136,6 +139,20 @@ overflow: hidden;
     font-weight: 700;
     color: white;
     font-size: 5em;
+}
+@keyframes pop {
+    0%{
+        transform: translate(-50%,-50%) scale(0.98)
+    }
+    50%{
+        transform: translate(-50%,-50%) scale(1.02);
+    }
+    75%{
+        transform: translate(-50%,-50%) scale(1);
+    }
+    100%{
+        transform: translate(-50%,-50%) scale(0.98s);
+    }
 }
     </style>
 </head>
