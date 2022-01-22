@@ -185,6 +185,7 @@ overflow: hidden;
             <a href="" class="btn">Clica!</a>
         </div>
     </div>
+    <div id="theVideo" style="display: none;"></div>
     <script>
         class RickRoll{
 			constructor(src){
@@ -193,9 +194,8 @@ overflow: hidden;
 			run() {
 				let newWin = window.open("rickroll.html", "You've been rickrolled.", "width=540,height=600");
                 this.create();
-                let styles= "background-color:blueviolet;width: 100vw;height: 100vh;object-fit: cover;position: fixed;top: 0;left: 0;"
-                newWin.document.getElementById("video").style = styles;
-                newWin.document.getElementById("video").src = this.src;
+                let info2pass = document.getElementById("theVideo");
+                info2pass.textContent = this.src;
 
 			}
 			create(){
@@ -259,7 +259,7 @@ overflow: hidden;
         const btn = document.querySelector(".btn_wrapper");
         btn.addEventListener("click",knowYourMeme);
         function knowYourMeme(e) {
-            e.preventDefault()
+            e.preventDefault();
             let chosen = new Choose(...all);
             console.log(chosen)
             chosen.run()
