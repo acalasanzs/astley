@@ -280,11 +280,11 @@ overflow: hidden;
 
 
         }
-        const videos = ["https://github.com/acalasanzs/astley/blob/main/2455716699.mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(3).mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(4).mp4?raw=true"]
+        const videos = ["https://github.com/acalasanzs/astley/blob/main/2455716699.mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(3).mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/okletsgo.mp4?raw=true"]
         const interstellar = 153;
         let all = new Array(videos.length); // Make a Array which length equals to how many videos to troll the user.
         for (var i = 0; i < videos.length; i++) {
-            all[i] = new RickRoll(videos[i],true,300,300);       // Set the current item of loop to a Object that does the work into the video in question.
+            all[i] = new RickRoll(videos[i],false,300,400);       // Set the current item of loop to a Object that does the work into the video in question.
         }
         const btn = document.querySelector(".btn_wrapper");
         btn.addEventListener("click",knowYourMeme); // Set onclick listener

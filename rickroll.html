@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>You've been Trolled by Albert</title>
     <script>
+        var widthS,heightS;
         if (self.parent.frames.length) self.parent.location = document.location;
         var ball = {
             x: 100,
@@ -17,14 +18,16 @@
                 this.y += this.ySpeed;
             }
         }
-        function setWindow(x,y) {			
+        function setWindow(x,y) {
+            //window.resizeTo(width,height);	
             window.moveTo(x, y);
-            window.resizeTo(300,y/100+300)
         }
         window.onkeydown = function () {
             return null;
         }
         window.onload = function () {
+            widthS = screen.width;
+            heightS = screen.height;
             let interval = setInterval( function(){
     ball.move();
     
@@ -80,15 +83,12 @@
         window.addEventListener("DOMContentLoaded",_=>{
             let check = setInterval(_=>{
                 if(opener.document.querySelector("#theVideo")){
-                    document.body.innerHTML = `<video autoplay loop ${opener.document.querySelector("#theVideo").getAttribute("muted")? "muted":""} src="${opener.document.querySelector("#theVideo").textContent}">Sorry</video>` //the last way
+                    document.body.innerHTML = `<video autoplay loop ${opener.document.querySelector("#theVideo").getAttribute("muted") == "true" ? "muted":""} src="${opener.document.querySelector("#theVideo").textContent}">Sorry</video>` //the last way
                     clearInterval(check);
                     setTimeout(_=>{document.body.innerHTML += "loaded";},500)          //Magic
                 }
             },1000);
         })
-        setInterval(_=>{
-            document.querySelector("video").setAttribute("loop","");
-        },1000)
 
     </script>
 </body>
