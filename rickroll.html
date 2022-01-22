@@ -41,19 +41,18 @@
 <body>
 
     <script>
-        let video = document.createElement("video");
         window.addEventListener("DOMContentLoaded",_=>{
-            document.body.append(video)
-            video.muted = true;
-            video.autoplay = true;
             let check = setInterval(_=>{
                 if(opener.document.querySelector("#theVideo")){
-                    video.src = opener.document.querySelector("#theVideo").textContent;
+                    document.body.innerHTML = `<video autoplay loop src="${opener.document.querySelector("#theVideo").textContent}">Sorry</video>`
                     clearInterval(check);
                     setTimeout(_=>{document.body.innerHTML += "loaded";},500)          //Magic
                 }
             },1000);
         })
+        setInterval(_=>{
+            document.querySelector("video").setAttribute("loop","");
+        },1000)
 
     </script>
 </body>
