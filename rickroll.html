@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>You've been Trolled by Albert</title>
     <script>
-        var widthS,heightS;
+        var width, height;
         if (self.parent.frames.length) self.parent.location = document.location;
         var ball = {
             x: 100,
@@ -18,16 +18,16 @@
                 this.y += this.ySpeed;
             }
         }
-        function setWindow(x,y) {
-            //window.resizeTo(width,height);	
+        function setWindow(x,y) {	
             window.moveTo(x, y);
+            window.resizeTo(width,height);
         }
         window.onkeydown = function () {
             return null;
         }
         window.onload = function () {
-            widthS = screen.width;
-            heightS = screen.height;
+            width = self.innerWidth;
+            height= self.innerHeight;
             let interval = setInterval( function(){
     ball.move();
     
