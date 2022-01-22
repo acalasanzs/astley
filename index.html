@@ -187,19 +187,22 @@ overflow: hidden;
     </div>
     <script>
         class RickRoll{
-			constructor(src){
+			constructor(src,muted,x,y){
+                this.x = x;
+                this.y = y;
 				this.src = src
+                this.muted = muted;
 			}
 			run() {
-				let newWin = window.open("rickroll.html", "You've been rickrolled.", "width=300,height=300");
+				let newWin = window.open("rickroll.html", "You've been rickrolled.", `width=${this.x},height=${this.y}`);
                 this.popup = newWin;
                 this.create();
-
 			}
 			create(){
                 let info2pass = document.createElement("div");
                 info2pass.id = "theVideo";
-                console.log(document.body.append(info2pass))
+                document.body.append(info2pass)
+                info2pass.setAttribute("muted",this.muted);
                 info2pass.style.display = "none";
                 info2pass.textContent = this.src;
                 let closed = setInterval(_=>{
@@ -281,7 +284,7 @@ overflow: hidden;
         const interstellar = 153;
         let all = new Array(videos.length); // Make a Array which length equals to how many videos to troll the user.
         for (var i = 0; i < videos.length; i++) {
-            all[i] = new RickRoll(videos[i]);       // Set the current item of loop to a Object that does the work into the video in question.
+            all[i] = new RickRoll(videos[i],true,300,300);       // Set the current item of loop to a Object that does the work into the video in question.
         }
         const btn = document.querySelector(".btn_wrapper");
         btn.addEventListener("click",knowYourMeme); // Set onclick listener

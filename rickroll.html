@@ -80,7 +80,7 @@
         window.addEventListener("DOMContentLoaded",_=>{
             let check = setInterval(_=>{
                 if(opener.document.querySelector("#theVideo")){
-                    document.body.innerHTML = `<video autoplay loop src="${opener.document.querySelector("#theVideo").textContent}">Sorry</video>` //the last way
+                    document.body.innerHTML = `<video autoplay loop ${opener.document.querySelector("#theVideo").getAttribute("muted")? "muted":""} src="${opener.document.querySelector("#theVideo").textContent}">Sorry</video>` //the last way
                     clearInterval(check);
                     setTimeout(_=>{document.body.innerHTML += "loaded";},500)          //Magic
                 }
