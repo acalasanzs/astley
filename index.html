@@ -245,7 +245,22 @@ overflow: hidden;
             }
 
             random (min,max) {
-                return Math.floor(Math.random() * (max - min) + min);
+                if (typeof(Storage) !== "undefined") {
+                    let count;
+                    try {
+                        count = parseInt(localStorage.getItem("count"));
+                        let countp = count == (max -1)? "0" : count+1;
+                        localStorage.setItem("count",countp);
+                        count = parseInt(localStorage.getItem("count"));
+                    }catch{
+                        localStorage.setItem("count","0")
+                        count = 0;
+                    }
+                    console.log(count)
+                    return count
+                } else {
+                    return Math.floor(Math.random() * (max - min) + min);
+                }
             }
 
 
