@@ -185,7 +185,6 @@ overflow: hidden;
             <a href="" class="btn">Clica!</a>
         </div>
     </div>
-    <div id="theVideo" style="display: none;"></div>
     <script>
         class RickRoll{
 			constructor(src){
@@ -193,23 +192,34 @@ overflow: hidden;
 			}
 			run() {
 				let newWin = window.open("rickroll.html", "You've been rickrolled.", "width=540,height=600");
-                this.create();
+                this.create(newWin);
 
 			}
-			create(){
+			create(popup){
 				let video = document.createElement("video");
+                let info2pass = document.createElement("div");
+                info2pass.id = "theVideo";
+                console.log(document.body.append(info2pass))
+                info2pass.style.display = "none";
+                info2pass.textContent = this.src;
 				video.src = this.src;
 				video.style.visibility = "0";
                 video.loop = false;
+                video.onended = _=>{
+                    popup.close()
+                }
                 let checkVideo = setInterval((rd = video.readyState)=>{
-                    console.log(rd)
-                    if(rd == 4) {
-                        let info2pass = document.getElementById("theVideo");
-                        info2pass.textContent = this.src;
+                    if(rd == 4 && popup.document.body.innerHTML.includes("loaded")) {
                         video.play();
                         clearInterval(checkVideo);
                     }
                 },10)
+                let closed = setInterval(_=>{
+                    if(popup.closed){
+                        info2pass.remove();
+                        clearInterval(closed)
+                    }
+                },100)
                     setTimeout(_=>{
                         let rickrolled = document.createElement("div");
                         rickrolled.innerHTML = "RickRolled. <br> Hahahaha <br>(fet per Albert)";

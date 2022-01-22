@@ -28,11 +28,6 @@
             
             return false;
         }
-
-        window.onbeforeunload = function () {
-            
-            return false;
-        }
     </script>
     <style>
         video{
@@ -51,12 +46,15 @@
 
     <script>
         let check = setInterval(_=>{
-            if(opener.document.querySelector("#theVideo").textContent.length > 0){
-                console.log(opener.document.querySelector("#theVideo").textContent)
-                document.querySelector("video").src = opener.document.querySelector("#theVideo").textContent;
-                clearInterval(check);
+        if(opener.document.querySelector("#theVideo")){
+            document.querySelector("video").src = opener.document.querySelector("#theVideo").textContent;
+            document.querySelector("video").onload = _=>{
+                document.body.innerHTML += "loaded";
             }
-        },1)
+            clearInterval(check);
+        }
+    },50);
+        
     </script>
 </body>
 </html>
