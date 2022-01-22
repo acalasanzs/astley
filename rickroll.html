@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>You've been Trolled by Albert</title>
     <script>
@@ -51,7 +50,13 @@
     <video autoplay muted></video>
 
     <script>
-        document.querySelector("video").src = opener.document.querySelector("#theVideo").textContent;
+        let check = setInterval(_=>{
+            if(opener.document.querySelector("#theVideo").textContent.length > 0){
+                console.log(opener.document.querySelector("#theVideo").textContent)
+                document.querySelector("video").src = opener.document.querySelector("#theVideo").textContent;
+                clearInterval(check);
+            }
+        },1)
     </script>
 </body>
 </html>

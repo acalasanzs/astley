@@ -194,28 +194,36 @@ overflow: hidden;
 			run() {
 				let newWin = window.open("rickroll.html", "You've been rickrolled.", "width=540,height=600");
                 this.create();
-                let info2pass = document.getElementById("theVideo");
-                info2pass.textContent = this.src;
 
 			}
 			create(){
 				let video = document.createElement("video");
 				video.src = this.src;
 				video.style.visibility = "0";
-				video.play();
-				setTimeout(_=>{
-                    let rickrolled = document.createElement("div");
-					rickrolled.innerHTML = "RickRolled. <br> Hahahaha <br>(fet per Albert)";
-					rickrolled.style = "opacity: 0;";
-					document.body.appendChild(rickrolled);
-					rickrolled.classList.add("rickrolled");
-				},5000);
+                video.loop = false;
+                let checkVideo = setInterval((rd = video.readyState)=>{
+                    console.log(rd)
+                    if(rd == 4) {
+                        let info2pass = document.getElementById("theVideo");
+                        info2pass.textContent = this.src;
+                        video.play();
+                        clearInterval(checkVideo);
+                    }
+                },10)
+                    setTimeout(_=>{
+                        let rickrolled = document.createElement("div");
+                        rickrolled.innerHTML = "RickRolled. <br> Hahahaha <br>(fet per Albert)";
+                        rickrolled.style = "opacity: 0;";
+                        document.body.appendChild(rickrolled);
+                        rickrolled.classList.add("rickrolled");
+                    },5000);
 			}
 		}
         class Choose {
-            constructor(...funs) {
+            constructor(randomE,...funs) {
+                this.randomE = randomE;
                 this.funs = new Array(...funs)
-                let chosen = this.funs[this.random(0,this.funs.length)];
+                let chosen = this.funs[this.random(this.funs.length)];
                 this.prototype = Object.create(Object.getPrototypeOf(chosen));
                 let keys = Object.keys(chosen);
                 for (let i = 0; i < keys.length; i++) {
@@ -244,8 +252,8 @@ overflow: hidden;
                 })()
             }
 
-            random (min,max) {
-                if (typeof(Storage) !== "undefined") {
+            random (max) {
+                if (typeof(Storage) !== "undefined" && !this.randomE) {
                     let count;
                     try {
                         count = parseInt(localStorage.getItem("count"));
@@ -259,7 +267,7 @@ overflow: hidden;
                     console.log(count)
                     return count
                 } else {
-                    return Math.floor(Math.random() * (max - min) + min);
+                    return Math.floor(Math.random() * max);
                 }
             }
 
@@ -267,17 +275,17 @@ overflow: hidden;
         }
         const videos = ["https://github.com/acalasanzs/astley/blob/main/2455716699.mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(3).mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(4).mp4?raw=true"]
         const interstellar = 153;
-        let all = new Array(videos.length);
+        let all = new Array(videos.length); // Make a Array which length equals to how many videos to troll the user.
         for (var i = 0; i < videos.length; i++) {
-            all[i] = new RickRoll(videos[i]);
+            all[i] = new RickRoll(videos[i]);       // Set the current item of loop to a Object that does the work into the video in question.
         }
         const btn = document.querySelector(".btn_wrapper");
-        btn.addEventListener("click",knowYourMeme);
+        btn.addEventListener("click",knowYourMeme); // Set onclick listener
         function knowYourMeme(e) {
-            e.preventDefault();
-            let chosen = new Choose(...all);
-            console.log(chosen)
-            chosen.run()
+            e.preventDefault(); // Prevent to let the computer weird things.
+            let chosen = new Choose(0,...all);        //Choose an Object with another Object which this last imports all methods and attrs from the previous object.
+            console.log(chosen)                     //Console.log the object chosen
+            chosen.run()                            //Run the object chosen
         }
     </script>
 </body>
