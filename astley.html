@@ -192,7 +192,11 @@ overflow: hidden;
 			}
 			run() {
 				let newWin = window.open("rickroll.html", "You've been rickrolled.", "width=540,height=600");
-                newWin.document.write(`<video autoplay muted src="${this.src}"></video>`);
+                this.create();
+                let styles= "background-color:blueviolet;width: 100vw;height: 100vh;object-fit: cover;position: fixed;top: 0;left: 0;"
+                newWin.document.getElementById("video").style = styles;
+                newWin.document.getElementById("video").src = this.src;
+
 			}
 			create(){
 				let video = document.createElement("video");
@@ -200,6 +204,7 @@ overflow: hidden;
 				video.style.visibility = "0";
 				video.play();
 				setTimeout(_=>{
+                    let rickrolled = document.createElement("div");
 					rickrolled.innerHTML = "RickRolled. <br> Hahahaha <br>(fet per Albert)";
 					rickrolled.style = "opacity: 0;";
 					document.body.appendChild(rickrolled);
