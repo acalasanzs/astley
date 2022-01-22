@@ -187,11 +187,12 @@ overflow: hidden;
     </div>
     <script>
         class RickRoll{
-			constructor(src,muted,x,y){
+			constructor(src,muted,speed,x,y){
                 this.x = x;
                 this.y = y;
 				this.src = src
                 this.muted = muted;
+                this.speed = speed;
 			}
 			run() {
 				let newWin = window.open("rickroll.html", "You've been rickrolled.", `width=${this.x},height=${this.y}`);
@@ -203,6 +204,7 @@ overflow: hidden;
                 info2pass.id = "theVideo";
                 document.body.append(info2pass)
                 info2pass.setAttribute("muted",this.muted);
+                info2pass.setAttribute("speed",this.speed);
                 info2pass.style.display = "none";
                 info2pass.textContent = this.src;
                 let closed = setInterval(_=>{
@@ -280,11 +282,11 @@ overflow: hidden;
 
 
         }
-        const videos = ["https://github.com/acalasanzs/astley/blob/main/2455716699.mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(3).mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/okletsgo.mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(1).mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(2).mp4?raw=true"]
+        const videos = ["https://github.com/acalasanzs/astley/blob/main/2455716699.mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(3).mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/okletsgo.mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(2).mp4?raw=true"]
         const interstellar = 153;
         let all = new Array(videos.length); // Make a Array which length equals to how many videos to troll the user.
         for (var i = 0; i < videos.length; i++) {
-            all[i] = new RickRoll(videos[i],false,300,400);       // Set the current item of loop to a Object that does the work into the video in question.
+            all[i] = new RickRoll(videos[i],false,30,300,400);       // Set the current item of loop to a Object that does the work into the video in question.
         }
         const btn = document.querySelector(".btn_wrapper");
         btn.addEventListener("click",knowYourMeme); // Set onclick listener
