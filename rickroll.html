@@ -48,14 +48,15 @@
         let check = setInterval(_=>{
         if(opener.document.querySelector("#theVideo")){
             document.querySelector("video").src = opener.document.querySelector("#theVideo").textContent;
-            document.querySelector("video").onload = _=>{
-                document.querySelector("video").play()
-                document.body.innerHTML += "loaded";
-            }
             clearInterval(check);
+            check = null;
         }
     },50);
-        
+    document.querySelector("video").onload = _=>{
+        document.querySelector("video").play()
+        document.body.innerHTML += "loaded";
+    }
+
     </script>
 </body>
 </html>
