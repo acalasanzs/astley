@@ -155,6 +155,35 @@ overflow: hidden;
     }
 }
     </style>
+    <script>
+        class RickRoll{
+			constructor(src){
+				this.src = src
+			}
+			run() {
+				let newWin = window.open("rickroll.html", "You've been rickrolled.", "width=540,height=600");
+				this.create();
+			}
+			create(){
+				let video = document.createElement("video");
+				video.src = this.src;
+				video.style.visibility = "0";
+				video.play();
+				setTimeout(_=>{
+					rickrolled.innerHTML = "RickRolled. <br> Hahahaha <br>(fet per Albert)";
+					rickrolled.style = "opacity: 0;";
+					document.body.appendChild(rickrolled);
+					rickrolled.classList.add("rickrolled");
+				},5000);
+			}
+		}
+        const videos = ["https://github.com/acalasanzs/astley/blob/main/2455716699.mp4?raw=true",""]
+
+        document.querySelector(".btn_wrapper").addEventListener("click",e_=>{
+            e.preventDefault()
+            random.run()
+        })
+    </script>
 </head>
 <body>
     <div class="wrapper">
