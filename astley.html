@@ -228,7 +228,8 @@ overflow: hidden;
                     let amethods = [...properties.keys()].filter(item => typeof obj[item] === 'function');
                     for(let i = 0; i < amethods.length; i++) {
                         if(amethods[i].valueOf().includes("_")) break;
-                        this[amethods[i].valueOf()] = properties.keys()[i];
+                        //this[amethods[i].valueOf()] = "";
+                        console.log(Object.getPrototypeOf(obj)[amethods[i]])
                     }
                     return true
                 })()
@@ -251,7 +252,7 @@ overflow: hidden;
         function knowYourMeme(e) {
             e.preventDefault()
             let chosen = new Choose(...all);
-            console.log(chosen)
+            //console.log(chosen)
             chosen.run()
         }
     </script>
