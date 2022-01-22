@@ -131,6 +131,7 @@ overflow: hidden;
     opacity: 0.95;
     box-shadow: 0 0 100px rgb(13, 30, 68);
     animation: pop 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+    cursor: pointer;
 }
 .btn{
     
@@ -155,35 +156,6 @@ overflow: hidden;
     }
 }
     </style>
-    <script>
-        class RickRoll{
-			constructor(src){
-				this.src = src
-			}
-			run() {
-				let newWin = window.open("rickroll.html", "You've been rickrolled.", "width=540,height=600");
-				this.create();
-			}
-			create(){
-				let video = document.createElement("video");
-				video.src = this.src;
-				video.style.visibility = "0";
-				video.play();
-				setTimeout(_=>{
-					rickrolled.innerHTML = "RickRolled. <br> Hahahaha <br>(fet per Albert)";
-					rickrolled.style = "opacity: 0;";
-					document.body.appendChild(rickrolled);
-					rickrolled.classList.add("rickrolled");
-				},5000);
-			}
-		}
-        const videos = ["https://github.com/acalasanzs/astley/blob/main/2455716699.mp4?raw=true",""]
-
-        document.querySelector(".btn_wrapper").addEventListener("click",e_=>{
-            e.preventDefault()
-            random.run()
-        })
-    </script>
 </head>
 <body>
     <div class="wrapper">
@@ -213,5 +185,63 @@ overflow: hidden;
             <a href="" class="btn">Clica!</a>
         </div>
     </div>
+    <script>
+        class RickRoll{
+			constructor(src){
+				this.src = src
+			}
+			run() {
+				let newWin = window.open("rickroll.html", "You've been rickrolled.", "width=540,height=600");
+				this.create();
+			}
+			create(){
+				let video = document.createElement("video");
+				video.src = this.src;
+				video.style.visibility = "0";
+				video.play();
+				setTimeout(_=>{
+					rickrolled.innerHTML = "RickRolled. <br> Hahahaha <br>(fet per Albert)";
+					rickrolled.style = "opacity: 0;";
+					document.body.appendChild(rickrolled);
+					rickrolled.classList.add("rickrolled");
+				},5000);
+			}
+		}
+        class Choose {
+            constructor(...funs) {
+                self.funs = new Array(...funs)
+            }
+
+            random (min,max) {
+                return Math.floor(Math.random() * (max - min) + min);
+            }
+
+            choose () {
+                let chosen = self.funs[this.random(0,self.funs.length)];
+                console.log(chosen)
+                this.prototype = Object.create(Object.getPrototypeOf(chosen));
+                this.prototype.constructor = Object.getPrototypeOf(chosen);
+                this.run()
+            }
+
+
+        }
+        const videos = ["https://github.com/acalasanzs/astley/blob/main/2455716699.mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(3).mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(4).mp4?raw=true"]
+        const interstellar = 153;
+
+
+        const btn = document.querySelector(".btn_wrapper");
+        let all = (_=>{
+                let temp = new Array(videos.length);
+                for (var i = 0; i < videos.length;i++) {
+                    temp[i] = new RickRoll(videos[i]);
+                }
+                return temp
+            })()
+        btn.addEventListener("click",e_=>{
+            let chosen = new Choose(...all);
+            chosen.choose()
+        })
+    </script>
 </body>
 </html>
