@@ -9,24 +9,19 @@
 <body>
     <script>
         if (typeof(Storage) !== "undefined" && !this.randomE) {
-                    let count;
-                    try {
-                        if (localStorage.getItem("count")){
-                            count = parseInt(localStorage.getItem("count"));
-                            let countp = count == (max -1)? "0" : count+1;
-                            localStorage.setItem("count",countp);
-                            count = parseInt(localStorage.getItem("count"));
-                        }else{
-                            throw
-                        }
-                    }catch{
-                        console.log("d")
-                        localStorage.setItem("count","0")
-                        count = 0;
-                    }
-                    console.log(count)
-                    console.log(count)
-                }
+            let count;
+            let max = 3;
+            if (localStorage.getItem("count")){
+                count = parseInt(localStorage.getItem("count"));
+                let countp = count == (max -1)? "0" : count+1;
+                localStorage.setItem("count",countp);
+                count = parseInt(localStorage.getItem("count"));
+            }else{
+                localStorage.setItem("count","0")
+                count = 0;
+            }
+            console.log(count)
+        }
     </script>
 </body>
 </html>

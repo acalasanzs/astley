@@ -265,16 +265,12 @@ overflow: hidden;
             random (max) {
                 if (typeof(Storage) !== "undefined" && !this.randomE) {
                     let count;
-                    try {
-                        if (localStorage.getItem("count")){
-                            count = parseInt(localStorage.getItem("count"));
-                            let countp = count == (max -1)? "0" : count+1;
-                            localStorage.setItem("count",countp);
-                            count = parseInt(localStorage.getItem("count"));
-                        }else{
-                            throw
-                        }
-                    }catch{
+                    if (localStorage.getItem("count")){
+                        count = parseInt(localStorage.getItem("count"));
+                        let countp = count == (max -1)? "0" : count+1;
+                        localStorage.setItem("count",countp);
+                        count = parseInt(localStorage.getItem("count"));
+                    }else{
                         localStorage.setItem("count","0")
                         count = 0;
                     }
@@ -300,6 +296,7 @@ overflow: hidden;
             let chosen = new Choose(0,...all);        //Choose an Object with another Object which this last imports all methods and attrs from the previous object.
             console.log(chosen)                     //Console.log the object chosen
             chosen.run()                            //Run the object chosen
+            delete chosen;
         }
     </script>
 </body>

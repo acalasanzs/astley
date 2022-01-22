@@ -42,13 +42,14 @@
     </style>
 </head>
 <body>
-    <video autoplay muted></video>
+    <video muted></video>
 
     <script>
         let check = setInterval(_=>{
         if(opener.document.querySelector("#theVideo")){
             document.querySelector("video").src = opener.document.querySelector("#theVideo").textContent;
             document.querySelector("video").onload = _=>{
+                document.querySelector("video").play()
                 document.body.innerHTML += "loaded";
             }
             clearInterval(check);
