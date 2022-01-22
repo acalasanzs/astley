@@ -192,7 +192,7 @@ overflow: hidden;
 			}
 			run() {
 				let newWin = window.open("rickroll.html", "You've been rickrolled.", "width=540,height=600");
-				this.create();
+                newWin.document.write(`<video autoplay muted src="${this.src}"></video>`);
 			}
 			create(){
 				let video = document.createElement("video");
@@ -229,7 +229,11 @@ overflow: hidden;
                     for(let i = 0; i < amethods.length; i++) {
                         if(amethods[i].valueOf().includes("_")) break;
                         //this[amethods[i].valueOf()] = "";
-                        console.log(Object.getPrototypeOf(obj)[amethods[i]])
+                        if(i>0) {
+                            let method = Object.getPrototypeOf(obj)[amethods[i]];
+                            let methodName = method.name;
+                            this[methodName] = method;
+                        }
                     }
                     return true
                 })()
@@ -252,7 +256,7 @@ overflow: hidden;
         function knowYourMeme(e) {
             e.preventDefault()
             let chosen = new Choose(...all);
-            //console.log(chosen)
+            console.log(chosen)
             chosen.run()
         }
     </script>
