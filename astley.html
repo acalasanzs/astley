@@ -209,39 +209,51 @@ overflow: hidden;
 		}
         class Choose {
             constructor(...funs) {
-                self.funs = new Array(...funs)
+                this.funs = new Array(...funs)
+                let chosen = this.funs[this.random(0,this.funs.length)];
+                this.prototype = Object.create(Object.getPrototypeOf(chosen));
+                let keys = Object.keys(chosen);
+                for (let i = 0; i < keys.length; i++) {
+                    this[keys[i]] = chosen[keys[i]]
+                }
+                this.getMethods(chosen)
+            }
+            getMethods = (obj) => {    
+                return (_=>{
+                    let properties = new Set()
+                    let currentObj = obj
+                    do {
+                        Object.getOwnPropertyNames(currentObj).map(item => properties.add(item))
+                    } while ((currentObj = Object.getPrototypeOf(currentObj)))
+                    let amethods = [...properties.keys()].filter(item => typeof obj[item] === 'function');
+                    for(let i = 0; i < amethods.length; i++) {
+                        if(amethods[i].valueOf().includes("_")) break;
+                        this[amethods[i].valueOf()] = properties.keys()[i];
+                    }
+                    return true
+                })()
             }
 
             random (min,max) {
                 return Math.floor(Math.random() * (max - min) + min);
             }
 
-            choose () {
-                let chosen = self.funs[this.random(0,self.funs.length)];
-                console.log(chosen)
-                this.prototype = Object.create(Object.getPrototypeOf(chosen));
-                this.prototype.constructor = Object.getPrototypeOf(chosen);
-                this.run()
-            }
-
 
         }
         const videos = ["https://github.com/acalasanzs/astley/blob/main/2455716699.mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(3).mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(4).mp4?raw=true"]
         const interstellar = 153;
-
-
+        let all = new Array(videos.length);
+        for (var i = 0; i < videos.length; i++) {
+            all[i] = new RickRoll(videos[i]);
+        }
         const btn = document.querySelector(".btn_wrapper");
-        let all = (_=>{
-                let temp = new Array(videos.length);
-                for (var i = 0; i < videos.length;i++) {
-                    temp[i] = new RickRoll(videos[i]);
-                }
-                return temp
-            })()
-        btn.addEventListener("click",e_=>{
+        btn.addEventListener("click",knowYourMeme);
+        function knowYourMeme(e) {
+            e.preventDefault()
             let chosen = new Choose(...all);
-            chosen.choose()
-        })
+            console.log(chosen)
+            chosen.run()
+        }
     </script>
 </body>
 </html>
