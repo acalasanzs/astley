@@ -266,10 +266,14 @@ overflow: hidden;
                 if (typeof(Storage) !== "undefined" && !this.randomE) {
                     let count;
                     try {
-                        count = parseInt(localStorage.getItem("count"));
-                        let countp = count == (max -1)? "0" : count+1;
-                        localStorage.setItem("count",countp);
-                        count = parseInt(localStorage.getItem("count"));
+                        if (localStorage.getItem("count")){
+                            count = parseInt(localStorage.getItem("count"));
+                            let countp = count == (max -1)? "0" : count+1;
+                            localStorage.setItem("count",countp);
+                            count = parseInt(localStorage.getItem("count"));
+                        }else{
+                            throw
+                        }
                     }catch{
                         localStorage.setItem("count","0")
                         count = 0;
