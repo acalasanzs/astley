@@ -270,6 +270,8 @@ h2{
             constructor(randomE,...funs) {
                 this.randomE = randomE;
                 this.funs = new Array(...funs)
+            }
+            next() {
                 let chosen = this.funs[this.random(this.funs.length)];
                 console.log(chosen.name);
                 this.prototype = Object.create(Object.getPrototypeOf(chosen));
@@ -323,20 +325,52 @@ h2{
         }
     </script>
     <script>
-        const videos = ["https://github.com/acalasanzs/astley/blob/main/2455716699.mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(3).mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/okletsgo.mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(2).mp4?raw=true"]
-        const velocity = [30,250,100,1]
-        const sizes = [[300,400],[650,320],[800,400],[400,350]]
-        const names = ["Rickroll","Noice","Ok let's go!!!","Shotting stars"]
-        const interstellar = 153;
-        function manyObjects(videos,velocity,sizes,names,muted,rand) {
-            let all = new Array(videos.length); // Make a Array which length equals to how many videos to troll the user.
-            for (var i = 0; i < videos.length; i++) {
-                all[i] = new RickRoll(videos[i],false,true,velocity[i],sizes[i][0],sizes[i][1],names[i]);       // Set the current item of loop to a Object that does the work into the video in question.
-            }
-
-            return all;
+        const Memes = {
+            "Rickroll" : {
+                "video": "https://github.com/acalasanzs/astley/blob/main/2455716699.mp4?raw=true",
+                "velocity": 30,
+                "size": [300,400],
+                "muted": false,
+                "rand": true
+            },
+            "Noice" : {
+                "video": "https://github.com/acalasanzs/astley/blob/main/epicmemes%20(3).mp4?raw=true",
+                "velocity": 250,
+                "size": [650,320],
+                "muted": false,
+                "rand": true
+            },
+            "Ok let's go!!!" : {
+                "video": "https://github.com/acalasanzs/astley/blob/main/okletsgo.mp4?raw=true",
+                "velocity": 100,
+                "size": [800,400],
+                "muted": false,
+                "rand": true
+            },
+            "Shotting stars" : {
+                "video": "https://github.com/acalasanzs/astley/blob/main/epicmemes%20(2).mp4?raw=true",
+                "velocity": 1,
+                "size": [400,350],
+                "muted": false,
+                "rand": true
+            },
         }
-        let all = manyObjects(videos,velocity,sizes,names,false,true);
+        const interstellar = 153;
+        function manyObjects(obj) {
+            let all = new Array();
+            for (let key in obj) {
+                let current = new Array();
+                for (let value in obj[key]){
+                    //console.log(key,value)
+                    //console.log(obj[key][value])
+                    current.push(obj[key][value])
+                }
+                all.push([key,current])
+            }
+           return all;
+        }
+        let all = manyObjects(Memes);
+        //let epics = manyObjects([])
         const btn = document.querySelector(".btn_wrapper");
         const epic = document.querySelectorAll(".btn_wrapper")[2];
         const closeB = document.getElementById("close");
@@ -344,6 +378,8 @@ h2{
         btn.addEventListener("click",knowYourMeme); // Set onclick listener
         epic.addEventListener("click",knowYourEpic); // Set onclick listener
         let chosen;
+        let yourEpic = new Choose(0,);
+        let yourMeme = new Choose(0,...all)
         function knowYourEpic(e) {
             e.preventDefault();
             try{
@@ -366,7 +402,6 @@ h2{
                 //console.log(chosen)                     //Console.log the object chosen
                 chosen.run()                            //Run the object chosen
                 document.querySelector("h2").textContent = chosen.name;
-                delete chosen;
             }
         }
         function closeThis(e) {
