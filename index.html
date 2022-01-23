@@ -158,6 +158,17 @@ overflow: hidden;
     font-weight: 700;
     color: white;
 }
+h2{
+    position: absolute;
+    bottom: 10vw;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 3em;
+    font-family: sans-serif;
+    color: white;
+    filter: drop-shadow(0 0 10 white);
+    animation: pop 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
 @keyframes pop {
     0%{
         transform: translate(-50%,-50%) scale(0.98)
@@ -209,6 +220,7 @@ overflow: hidden;
                 <a href="" class="btn">EPIC!</a>
             </div>
         </div>
+        <h2 id="current"></h2>
     </div>
     <script>
         let svg = document.querySelector("svg");
@@ -353,6 +365,7 @@ overflow: hidden;
                 chosen = new Choose(0,...all);        //Choose an Object with another Object which this last imports all methods and attrs from the previous object.
                 //console.log(chosen)                     //Console.log the object chosen
                 chosen.run()                            //Run the object chosen
+                document.querySelector("h2").textContent = chosen.name;
                 delete chosen;
             }
         }
