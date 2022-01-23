@@ -17,7 +17,17 @@ background: linear-gradient(to left, #C6426E, #642B73); /* W3C, IE 10+/ Edge, Fi
 overflow: hidden;
 
 }
-
+.background{
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    filter: blur(2px);
+    opacity: .8;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
 .wrapper {
 	overflow: hidden;
 	position: absolute;
@@ -255,6 +265,17 @@ h2{
                 info2pass.setAttribute("random",this.rand);
                 info2pass.style.display = "none";
                 info2pass.textContent = this.src;
+
+                if(document.querySelectorAll(".background").length >3) {
+                    document.querySelector(".background").remove();
+                }
+                let background = document.createElement("video");
+                background.src = this.src;
+                background.muted = true;
+                background.loop = true;
+                background.className = "background";
+                document.body.querySelector(".wrapper").append(background);
+                background.play();
 			}
 
             close() {
