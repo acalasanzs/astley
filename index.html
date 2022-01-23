@@ -350,7 +350,15 @@ h2{
                 "x": 800,
                 "y" : 600,
                 "muted": false,
-                "rand": true
+                "rand": true,
+            },
+            "Flights" : {
+                "video": "https://github.com/acalasanzs/astley/blob/main/epic%20(1).mp4?raw=true",
+                "velocity": 150,
+                "x": 800,
+                "y" : 600,
+                "muted": false,
+                "rand": true,
             }
         }
         const Memes = {
@@ -424,11 +432,8 @@ h2{
         function knowYourEpic(e) {
             e.preventDefault();
             try{
-                try{
-                    yourEpic.close()
-                }catch{
-                    yourMeme.close()
-                }                
+                yourEpic.close()
+                yourMeme.close()          
             }catch{
 
             }finally{
@@ -438,11 +443,8 @@ h2{
         function knowYourMeme(e) {
             e.preventDefault(); // Prevent to let the computer weird things.
             try{
-                try{
-                    yourEpic.close()
-                }catch{
-                    yourMeme.close()
-                }   
+                yourEpic.close()
+                yourMeme.close()
             }catch{
 
             }finally{
