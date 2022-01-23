@@ -272,14 +272,14 @@ h2{
                 this.funs = new Array(...funs)
             }
             next() {
-                let chosen = this.funs[this.random(this.funs.length)];
-                console.log(chosen.name);
-                this.prototype = Object.create(Object.getPrototypeOf(chosen));
-                let keys = Object.keys(chosen);
+                this.chosen = this.funs[this.random(this.funs.length)];
+                console.log(this.funs);
+                this.prototype = Object.create(Object.getPrototypeOf(this.chosen));
+                let keys = Object.keys(this.chosen);
                 for (let i = 0; i < keys.length; i++) {
-                    this[keys[i]] = chosen[keys[i]]
+                    this[keys[i]] = this.chosen[keys[i]]
                 }
-                this.getMethods(chosen)
+                this.getMethods(this.chosen)
             }
             getMethods = (obj) => {    
                 return (_=>{
@@ -325,6 +325,15 @@ h2{
         }
     </script>
     <script>
+        const epicsObj = {
+            "Interstellar" : {
+                "video": "https://github.com/acalasanzs/astley/blob/main/epicmemes%20(1).mp4?raw=true",
+                "velocity": 150,
+                "size": [800,600],
+                "muted": false,
+                "rand": true
+            }
+        }
         const Memes = {
             "Rickroll" : {
                 "video": "https://github.com/acalasanzs/astley/blob/main/2455716699.mp4?raw=true",
@@ -365,25 +374,36 @@ h2{
                     //console.log(obj[key][value])
                     current.push(obj[key][value])
                 }
-                all.push([key,current])
+                all.push([key,...current])
             }
            return all;
         }
-        let all = manyObjects(Memes);
-        //let epics = manyObjects([])
+        function manyClasses(cls,obj) {
+            let All = new Array();
+            for (var i in obj) {
+                All.push(new cls(i));
+            }
+            return All;
+        }
+        let all = manyClasses(RickRoll,manyObjects(Memes));
+        let epics = manyClasses(RickRoll,manyObjects(epicsObj));
+        console.log(all)
         const btn = document.querySelector(".btn_wrapper");
         const epic = document.querySelectorAll(".btn_wrapper")[2];
         const closeB = document.getElementById("close");
         closeB.addEventListener("click",closeThis); // Set onclick listener
         btn.addEventListener("click",knowYourMeme); // Set onclick listener
         epic.addEventListener("click",knowYourEpic); // Set onclick listener
-        let chosen;
-        let yourEpic = new Choose(0,);
-        let yourMeme = new Choose(0,...all)
+        const yourEpic = new Choose(0,...epics);
+        const yourMeme = new Choose(0,...all);
         function knowYourEpic(e) {
             e.preventDefault();
             try{
-                chosen.close()
+                try{
+                    yourEpic.close()
+                }catch{
+                    yourMeme.close()
+                }                
             }catch{
 
             }finally{
@@ -393,15 +413,20 @@ h2{
         function knowYourMeme(e) {
             e.preventDefault(); // Prevent to let the computer weird things.
             try{
-                chosen.close()
+                try{
+                    yourEpic.close()
+                }catch{
+                    yourMeme.close()
+                }   
             }catch{
 
             }finally{
+                yourMeme.next();
                 svg.style.opacity = 0;
-                chosen = new Choose(0,...all);        //Choose an Object with another Object which this last imports all methods and attrs from the previous object.
+                yourMeme = new Choose(0,...all);        //Choose an Object with another Object which this last imports all methods and attrs from the previous object.
                 //console.log(chosen)                     //Console.log the object chosen
-                chosen.run()                            //Run the object chosen
-                document.querySelector("h2").textContent = chosen.name;
+                yourMeme.run()                            //Run the object chosen
+                document.querySelector("h2").textContent = yourMeme.name;
             }
         }
         function closeThis(e) {
