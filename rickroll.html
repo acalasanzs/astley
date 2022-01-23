@@ -98,7 +98,7 @@
     <script>
     document.body.innerHTML = `<video autoplay loop ${opener.document.querySelector("#theVideo").getAttribute("muted") == "true" ? "muted":""} src="${opener.document.querySelector("#theVideo").textContent}">Sorry</video>` //the last way
     //setTimeout(_=>{document.body.innerHTML += "loaded";},100)          //Magic
-    document.documentElement.style = `max-width: ${width}; max-height: ${height}`
+    //document.documentElement.style = `max-width: ${width}; max-height: ${height}`
 
     </script>
 </body>

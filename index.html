@@ -225,7 +225,7 @@ h2{
     <script>
         let svg = document.querySelector("svg");
         class RickRoll{
-			constructor(src,muted,rand,speed,x,y,name){
+			constructor(src,speed,x,y,muted,rand,name){
                 this.x = x;
                 this.y = y;
 				this.src = src
@@ -235,9 +235,16 @@ h2{
                 this.name = name;
 			}
 			run() {
-				let newWin = window.open("rickroll.html", "You've been rickrolled.", `resizable=0,width=${this.x},height=${this.y}`);
-                this.popup = newWin;
-                this.create();
+                const del = new Promise((resolve,reject) =>{
+                    let toDel = document.getElementById("theVideo");
+                    if(toDel) toDel.remove();
+                    resolve()
+                })
+                del.then(_=>{
+                    let newWin = window.open("rickroll.html", "You've been rickrolled.", `resizable=0,width=${this.x},height=${this.y}`);
+                    this.popup = newWin;
+                    this.create();
+                })	
 			}
 			create(){
                 let info2pass = document.createElement("div");
@@ -248,21 +255,11 @@ h2{
                 info2pass.setAttribute("random",this.rand);
                 info2pass.style.display = "none";
                 info2pass.textContent = this.src;
-                let closed = setInterval(_=>{
-                    if(this.popup.closed){
-                        info2pass.remove();
-                        clearInterval(closed)
-                    }
-                },100)
-                let rickrolled = document.createElement("div");
-                rickrolled.innerHTML = "RickRolled. <br> Hahahaha <br>(fet per Albert)";
-                rickrolled.style = "opacity: 0;";
-                document.body.appendChild(rickrolled);
-                rickrolled.classList.add("rickrolled");
 			}
 
             close() {
                 this.popup.close()
+                document.getElementById("theVideo").remove();
                 return true;
             }
 		}
@@ -379,7 +376,8 @@ h2{
                     //console.log(obj[key][value])
                     current.push(obj[key][value])
                 }
-                all.push([...current,key])
+                current.push(key);
+                all.push(current);
             }
            return all;
         }
