@@ -273,7 +273,7 @@ h2{
             }
             next() {
                 this.chosen = this.funs[this.random(this.funs.length)];
-                console.log(this.funs[0])
+                //console.log(this.funs[0])
                 this.prototype = Object.create(Object.getPrototypeOf(this.chosen));
                 let keys = Object.keys(this.chosen);
                 for (let i = 0; i < keys.length; i++) {
@@ -329,7 +329,8 @@ h2{
             "Interstellar" : {
                 "video": "https://github.com/acalasanzs/astley/blob/main/epicmemes%20(1).mp4?raw=true",
                 "velocity": 150,
-                "x": [800,600],
+                "x": 800,
+                "y" : 600,
                 "muted": false,
                 "rand": true
             }
@@ -338,28 +339,32 @@ h2{
             "Rickroll" : {
                 "video": "https://github.com/acalasanzs/astley/blob/main/2455716699.mp4?raw=true",
                 "velocity": 30,
-                "size": [300,400],
+                "x": 300,
+                "y" : 400,
                 "muted": false,
                 "rand": true
             },
             "Noice" : {
                 "video": "https://github.com/acalasanzs/astley/blob/main/epicmemes%20(3).mp4?raw=true",
                 "velocity": 250,
-                "size": [650,320],
+                "x": 650,
+                "y" : 320,
                 "muted": false,
                 "rand": true
             },
             "Ok let's go!!!" : {
                 "video": "https://github.com/acalasanzs/astley/blob/main/okletsgo.mp4?raw=true",
                 "velocity": 100,
-                "size": [800,400],
+                "x": 800,
+                "y" : 400,
                 "muted": false,
                 "rand": true
             },
             "Shotting stars" : {
                 "video": "https://github.com/acalasanzs/astley/blob/main/epicmemes%20(2).mp4?raw=true",
                 "velocity": 1,
-                "size": [400,350],
+                "x": 400,
+                "y" : 350,
                 "muted": false,
                 "rand": true
             },
@@ -388,15 +393,15 @@ h2{
         }
         let all = manyClasses(RickRoll,manyObjects(Memes));
         let epics = manyClasses(RickRoll,manyObjects(epicsObj));
-        console.log(all)
+        //console.log(all)
         const btn = document.querySelector(".btn_wrapper");
         const epic = document.querySelectorAll(".btn_wrapper")[2];
         const closeB = document.getElementById("close");
         closeB.addEventListener("click",closeThis); // Set onclick listener
         btn.addEventListener("click",knowYourMeme); // Set onclick listener
         epic.addEventListener("click",knowYourEpic); // Set onclick listener
-        const yourEpic = new Choose(0,...epics);
-        const yourMeme = new Choose(0,...all);
+        const yourEpic = new Choose(0,...epics);        //Choose an Object with another Object which this last imports all methods and attrs from the previous object.
+        const yourMeme = new Choose(0,...all);          //Choose an Object with another Object which this last imports all methods and attrs from the previous object.
         function knowYourEpic(e) {
             e.preventDefault();
             try{
@@ -424,8 +429,6 @@ h2{
             }finally{
                 yourMeme.next();
                 svg.style.opacity = 0;
-                yourMeme = new Choose(0,...all);        //Choose an Object with another Object which this last imports all methods and attrs from the previous object.
-                //console.log(chosen)                     //Console.log the object chosen
                 yourMeme.run()                            //Run the object chosen
                 document.querySelector("h2").textContent = yourMeme.name;
             }
