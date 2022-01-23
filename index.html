@@ -287,10 +287,11 @@ overflow: hidden;
     </script>
     <script>
         const videos = ["https://github.com/acalasanzs/astley/blob/main/2455716699.mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(3).mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/okletsgo.mp4?raw=true","https://github.com/acalasanzs/astley/blob/main/epicmemes%20(2).mp4?raw=true"]
+        const velocity = [30,250,100,1]
         const interstellar = 153;
         let all = new Array(videos.length); // Make a Array which length equals to how many videos to troll the user.
         for (var i = 0; i < videos.length; i++) {
-            all[i] = new RickRoll(videos[i],false,true,100,300,400);       // Set the current item of loop to a Object that does the work into the video in question.
+            all[i] = new RickRoll(videos[i],false,true,velocity[i],300,400);       // Set the current item of loop to a Object that does the work into the video in question.
         }
         const btn = document.querySelector(".btn_wrapper");
         btn.addEventListener("click",knowYourMeme); // Set onclick listener
