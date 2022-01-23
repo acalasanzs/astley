@@ -316,12 +316,17 @@ overflow: hidden;
         const sizes = [[300,400],[650,320],[800,400],[400,350]]
         const names = ["Rickroll","Noice","Ok let's go!!!","Shotting stars"]
         const interstellar = 153;
-        let all = new Array(videos.length); // Make a Array which length equals to how many videos to troll the user.
-        for (var i = 0; i < videos.length; i++) {
-            all[i] = new RickRoll(videos[i],false,true,velocity[i],sizes[i][0],sizes[i][1],names[i]);       // Set the current item of loop to a Object that does the work into the video in question.
+        function manyObjects(videos,velocity,sizes,names,muted,rand) {
+            let all = new Array(videos.length); // Make a Array which length equals to how many videos to troll the user.
+            for (var i = 0; i < videos.length; i++) {
+                all[i] = new RickRoll(videos[i],false,true,velocity[i],sizes[i][0],sizes[i][1],names[i]);       // Set the current item of loop to a Object that does the work into the video in question.
+            }
+
+            return all;
         }
+        let all = manyObjects(videos,velocity,sizes,names,false,true);
         const btn = document.querySelector(".btn_wrapper");
-        const epic = document.getElementById("btns").lastChild;
+        const epic = document.querySelectorAll(".btn_wrapper")[2];
         const closeB = document.getElementById("close");
         closeB.addEventListener("click",closeThis); // Set onclick listener
         btn.addEventListener("click",knowYourMeme); // Set onclick listener
@@ -335,10 +340,6 @@ overflow: hidden;
 
             }finally{
                 svg.style.opacity = 0;
-                chosen = new Choose(0,...all);        //Choose an Object with another Object which this last imports all methods and attrs from the previous object.
-                //console.log(chosen)                     //Console.log the object chosen
-                chosen.run()                            //Run the object chosen
-                delete chosen;
             }
         }
         function knowYourMeme(e) {
