@@ -273,7 +273,7 @@ h2{
             }
             next() {
                 this.chosen = this.funs[this.random(this.funs.length)];
-                console.log(this.funs);
+                console.log(this.funs[0])
                 this.prototype = Object.create(Object.getPrototypeOf(this.chosen));
                 let keys = Object.keys(this.chosen);
                 for (let i = 0; i < keys.length; i++) {
@@ -329,7 +329,7 @@ h2{
             "Interstellar" : {
                 "video": "https://github.com/acalasanzs/astley/blob/main/epicmemes%20(1).mp4?raw=true",
                 "velocity": 150,
-                "size": [800,600],
+                "x": [800,600],
                 "muted": false,
                 "rand": true
             }
@@ -374,14 +374,15 @@ h2{
                     //console.log(obj[key][value])
                     current.push(obj[key][value])
                 }
-                all.push([key,...current])
+                all.push([...current,key])
             }
            return all;
         }
         function manyClasses(cls,obj) {
             let All = new Array();
-            for (var i in obj) {
-                All.push(new cls(i));
+            for (var i of obj) {
+                let a = new cls(...i);
+                All.push(a);
             }
             return All;
         }
