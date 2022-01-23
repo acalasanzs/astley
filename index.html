@@ -291,7 +291,6 @@ h2{
             }
             next() {
                 this.chosen = this.funs[this.random(this.funs.length)];
-                //console.log(this.funs[0])
                 this.prototype = Object.create(Object.getPrototypeOf(this.chosen));
                 let keys = Object.keys(this.chosen);
                 for (let i = 0; i < keys.length; i++) {
@@ -323,16 +322,19 @@ h2{
             random (max) {
                 if (typeof(Storage) !== "undefined" && !this.randomE) {
                     let count;
-                    if (localStorage.getItem("count")){
-                        count = parseInt(localStorage.getItem("count"));
-                        let countp = count == (max -1)? "0" : count+1;
-                        localStorage.setItem("count",countp);
-                        count = parseInt(localStorage.getItem("count"));
+                    if (localStorage.getItem(this.name)){
+                        count = parseInt(localStorage.getItem(this.name));
+                        let countp = count +1;
+                        if (countp > (max-1)) {
+                            countp = 0;
+                        }
+                        localStorage.setItem(this.name,countp);
+                        count = parseInt(localStorage.getItem(this.name));
                     }else{
-                        localStorage.setItem("count","0")
+                        localStorage.setItem(this.name,"0")
                         count = 0;
                     }
-                    //console.log(count)
+                    console.log(count)
                     return count
                 } else {
                     return Math.floor(Math.random() * max);
@@ -438,6 +440,16 @@ h2{
 
             }finally{
                 svg.style.opacity = 0;
+                yourEpic.next();
+                yourEpic.run()
+                document.querySelector("h2").textContent = yourEpic.name;
+                for (var i = 0; i < 3; i++) {
+                    let muted = {...yourEpic};
+                    muted.x = 200;
+                    muted.y = 250;
+                    muted.muted = true;
+                    muted.run()
+                }
             }
         }
         function knowYourMeme(e) {
@@ -456,13 +468,17 @@ h2{
         }
         function closeThis(e) {
             e.preventDefault();
-            try {
-                chosen.close()
+            try {   
+                yourEpic.close();
+                yourMeme.close();
             }catch{
 
             }finally{
                 svg.style.opacity = 1;
             }
+            for(var i of document.querySelectorAll(".background")) {
+                i.remove()
+            }           
             
         }
     </script>
