@@ -4,24 +4,55 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Test</title>
 </head>
-<body>
-    <script>
-        if (typeof(Storage) !== "undefined" && !this.randomE) {
-            let count;
-            let max = 3;
-            if (localStorage.getItem("count")){
-                count = parseInt(localStorage.getItem("count"));
-                let countp = count == (max -1)? "0" : count+1;
-                localStorage.setItem("count",countp);
-                count = parseInt(localStorage.getItem("count"));
-            }else{
-                localStorage.setItem("count","0")
-                count = 0;
-            }
-            console.log(count)
+<script type="text/javascript">
+    function popUp (url,title,x,y,num) {
+        let opened = new Promise((resolve,reject)=>{
+            let o = open(url,num);
+            if (o) resolve()
+            reject()
+        })
+        opened.then(_=>{
+            console.log(this)
+        }).catch(_=>{
+            console.log("Ok")
+        })
+
+
+
+        function open(url,title,x,y,num) {
+        for(var i = 0; i < num; i++){
+            let popup = window.open(url, title, `location=1,toolbar=0,menubar=0,resizable=1,width=${x},height=${y}`);
+            if(!popup || popup.closed) {
+                let al = new Promise((resolve, reject) =>{
+                    if (window.confirm("Pop-ups are required")) {
+                        this.addEventListener("click",resolve);
+                    }else{
+                        reject()
+                    }
+                });
+                
+                al
+                .then(_=>{
+                    return false;
+                })
+                .catch(_=>{
+                    return true;
+                })
+                break;
+
         }
+    }
+}
+    }
+</script>
+<body>
+    <button>OPEN</button>
+    <script>
+        document.querySelector("button").addEventListener("click",_=>{
+            open("rickroll.html","You've been rickrolled",200,350,3)
+        })
     </script>
 </body>
 </html>
