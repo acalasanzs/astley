@@ -319,6 +319,10 @@ h2{
                 }
                 this.getMethods(this.chosen)
             }
+            clone (id) {
+                let clone = Object.assign(Object.create(Object.getPrototypeOf(this.funs[this.count])), this.funs[this.count]);
+                return clone;
+            }
             getMethods = (obj) => {    
                 return (_=>{
                     let properties = new Set()
@@ -342,21 +346,21 @@ h2{
 
             random (max) {
                 if (typeof(Storage) !== "undefined" && !this.randomE) {
-                    let count;
+                    //let count;
                     if (localStorage.getItem(this.id)){
-                        count = parseInt(localStorage.getItem(this.id));
-                        let countp = count == undefined ? 0 : count +1;
+                        this.count = parseInt(localStorage.getItem(this.id));
+                        let countp = this.count == undefined ? 0 : this.count +1;
                         if (countp > (max -1)) {
                             countp = 0;
                         }
                         localStorage.setItem(this.id,countp);
-                        count = parseInt(localStorage.getItem(this.id));
+                        this.count = parseInt(localStorage.getItem(this.id));
                     }else{
                         localStorage.setItem(this.id,"0")
-                        count = 0;
+                        this.count = 0;
                     }
-                    console.log(count)
-                    return count
+                    //console.log(count)
+                    return this.count
                 } else {
                     return Math.floor(Math.random() * max);
                 }
@@ -370,16 +374,16 @@ h2{
             "Interstellar" : {
                 "video": "https://github.com/acalasanzs/astley/blob/main/epicmemes%20(1).mp4?raw=true",
                 "velocity": 150,
-                "x": 800,
-                "y" : 600,
+                "x": 300,
+                "y" : 400,
                 "muted": false,
                 "rand": true,
             },
             "Flights" : {
                 "video": "https://github.com/acalasanzs/astley/blob/main/epic%20(1).mp4?raw=true",
                 "velocity": 150,
-                "x": 800,
-                "y" : 600,
+                "x": 300,
+                "y" : 400,
                 "muted": false,
                 "rand": true,
             }
@@ -452,6 +456,7 @@ h2{
         epic.addEventListener("click",knowYourEpic); // Set onclick listener
         const yourEpic = new Choose("yourEpic",0,...epics);        //Choose an Object with another Object which this last imports all methods and attrs from the previous object.
         const yourMeme = new Choose("yourMeme",0,...all);          //Choose an Object with another Object which this last imports all methods and attrs from the previous object.
+        let muted;
         function knowYourEpic(e) {
             e.preventDefault();
             try{
@@ -472,7 +477,8 @@ h2{
                 yourEpic.run()
                 document.querySelector("h2").textContent = yourEpic.name;
                 for (var i = 0; i < 3; i++) {
-                    let muted = {...yourEpic};
+                    muted = yourEpic.clone();
+                    console.log(muted)
                     muted.x = 200;
                     muted.y = 250;
                     muted.muted = true;
