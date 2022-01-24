@@ -168,6 +168,26 @@ overflow: hidden;
     font-weight: 700;
     color: white;
 }
+@media screen and (max-width: 1000px) {
+    #btns{
+        width: 50vw;
+    }
+
+    .btn_wrapper{
+        width: 100%;
+        margin-bottom: 10vh;
+        height: calc(50vw / 3);
+        border-radius: calc(50vw / 3);
+        font-size: calc(50vw / 8);
+    }
+    .btn_wrapper:nth-child(2) {
+        font-size: calc(50vw / 7);
+    }
+    .btn_wrapper:nth-child(3) {
+        margin-bottom: 0;
+        font-size: calc(50vw / 6);
+    }
+}
 h2{
     position: absolute;
     bottom: 10vw;
@@ -285,9 +305,10 @@ h2{
             }
 		}
         class Choose {
-            constructor(randomE,...funs) {
+            constructor(id,randomE,...funs) {
                 this.randomE = randomE;
-                this.funs = new Array(...funs)
+                this.funs = new Array(...funs);
+                this.id = id;
             }
             next() {
                 this.chosen = this.funs[this.random(this.funs.length)];
@@ -322,16 +343,16 @@ h2{
             random (max) {
                 if (typeof(Storage) !== "undefined" && !this.randomE) {
                     let count;
-                    if (localStorage.getItem(this.name)){
-                        count = parseInt(localStorage.getItem(this.name));
-                        let countp = count +1;
-                        if (countp > (max-1)) {
+                    if (localStorage.getItem(this.id)){
+                        count = parseInt(localStorage.getItem(this.id));
+                        let countp = count == undefined ? 0 : count +1;
+                        if (countp > (max -1)) {
                             countp = 0;
                         }
-                        localStorage.setItem(this.name,countp);
-                        count = parseInt(localStorage.getItem(this.name));
+                        localStorage.setItem(this.id,countp);
+                        count = parseInt(localStorage.getItem(this.id));
                     }else{
-                        localStorage.setItem(this.name,"0")
+                        localStorage.setItem(this.id,"0")
                         count = 0;
                     }
                     console.log(count)
@@ -429,13 +450,20 @@ h2{
         closeB.addEventListener("click",closeThis); // Set onclick listener
         btn.addEventListener("click",knowYourMeme); // Set onclick listener
         epic.addEventListener("click",knowYourEpic); // Set onclick listener
-        const yourEpic = new Choose(0,...epics);        //Choose an Object with another Object which this last imports all methods and attrs from the previous object.
-        const yourMeme = new Choose(0,...all);          //Choose an Object with another Object which this last imports all methods and attrs from the previous object.
+        const yourEpic = new Choose("yourEpic",0,...epics);        //Choose an Object with another Object which this last imports all methods and attrs from the previous object.
+        const yourMeme = new Choose("yourMeme",0,...all);          //Choose an Object with another Object which this last imports all methods and attrs from the previous object.
         function knowYourEpic(e) {
             e.preventDefault();
             try{
-                yourEpic.close()
-                yourMeme.close()          
+                try{
+                    yourEpic.close();
+                }catch{
+                    try{
+                        yourMeme.close();
+                    }catch{
+
+                    }
+                }       
             }catch{
 
             }finally{
@@ -455,8 +483,16 @@ h2{
         function knowYourMeme(e) {
             e.preventDefault(); // Prevent to let the computer weird things.
             try{
-                yourEpic.close()
-                yourMeme.close()
+                try{
+                    yourEpic.close();
+                }catch{
+                    try{
+                        yourMeme.close();
+                    }catch{
+
+                    }
+                }
+                
             }catch{
 
             }finally{
@@ -468,9 +504,17 @@ h2{
         }
         function closeThis(e) {
             e.preventDefault();
-            try {   
-                yourEpic.close();
-                yourMeme.close();
+            try {
+                try{
+                    yourEpic.close();
+                }catch{
+                    try{
+                        yourMeme.close();
+                    }catch{
+
+                    }
+                }
+                
             }catch{
 
             }finally{
