@@ -271,8 +271,7 @@ h2{
                     resolve()
                 })
                 del.then(_=>{
-                    let newWin = window.open("rickroll.html", "You've been rickrolled.", `resizable=0,width=${this.x},height=${this.y}`);
-                    this.popup = newWin;
+                    this.popup = window.open("rickroll.html", "You've been rickrolled.", `resizable=0,width=${this.x},height=${this.y}`);
                     this.create();
                 })	
 			}
@@ -291,7 +290,9 @@ h2{
                 }
                 let background = document.createElement("video");
                 background.src = this.src;
-                background.muted = true;
+                if (this.popup){
+                    background.muted = true;
+                }
                 background.loop = true;
                 background.className = "background";
                 document.body.querySelector(".wrapper").append(background);
@@ -418,6 +419,14 @@ h2{
                 "velocity": 1,
                 "x": 400,
                 "y" : 350,
+                "muted": false,
+                "rand": true
+            },
+            "Universal" : {
+                "video": "https://github.com/acalasanzs/astley/blob/main/universal.mp4?raw=true",
+                "velocity": 1,
+                "x": 600,
+                "y" : 450,
                 "muted": false,
                 "rand": true
             },

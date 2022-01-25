@@ -9,7 +9,7 @@
 <script type="text/javascript">
     function popUp (url,title,x,y,num) {
         let opened = new Promise((resolve,reject)=>{
-            let o = open(url,num);
+            let o = open(url,title,x,y,num);
             if (o) resolve()
             reject()
         })
